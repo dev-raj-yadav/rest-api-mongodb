@@ -2,10 +2,11 @@ const express=require("express");
 const app=express();
 const mongoose =require("mongoose");
 const path=require("path");
+const Chat =require("./models/chat.js");
 
 app.set("views",path.join(__dirname,"views"));
 app.set("view engine","ejs");
-
+app.use(express.static(path.join(__dirname,"public")));
 
 //geting connection with mongodb
 main().then(()=>{
@@ -19,7 +20,16 @@ async function main(){
 
 }
 
-app.get('/',(re,res)=>{
+
+
+//index Route
+app.get("/chats",async(req,res)=>{
+       let chats = await Chat.find()
+       console.log(chats);
+       res.render("index.ejs",{chats});
+});
+
+app.get('/',(req,res)=>{
     res.send("Root is working");
 })
 
