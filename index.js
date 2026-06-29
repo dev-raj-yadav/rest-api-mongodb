@@ -77,6 +77,15 @@ app.put("/chats/:id",async(req,res)=>{
     
 })
 
+//delete route
+app.delete("/chats/:id",(req,res)=>{
+    let {id}=req.params;
+    let deletedChat=Chat.findByIdAndDelete(id);
+    console.log(deletedChat);
+    res.redirect("/chats");
+
+})
+
 
 
 //for server starting
